@@ -16,7 +16,7 @@ Run for Development
 
 Clone the repo, create virtualenv and install requirements:
 ```
-git clone git@github.com:ei-grad/sunsurfers.git
+git clone https://github.com/ei-grad/sunsurfers-backend.git
 cd sunsurfers
 virtualenv venv
 source venv/bin/activate
