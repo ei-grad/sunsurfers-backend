@@ -18,7 +18,7 @@ Clone the repo, create virtualenv and install requirements:
 ```
 git clone https://github.com/ei-grad/sunsurfers-backend.git
 cd sunsurfers-backend
-virtualenv venv
+virtualenv --python=python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
