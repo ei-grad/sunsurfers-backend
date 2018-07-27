@@ -7,6 +7,8 @@ lxml
 psycopg2
 pyyaml
 requests
+# telegram auth backend is not released yet
+git+https://github.com/python-social-auth/social-core.git
 social-auth-app-django
 
 # tests

@@ -15,13 +15,23 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib.gis import admin
+from django.shortcuts import render
 
 from surfers.api import v1_api
 
 from . import auth
 
 
+def login_view(request):
+    # XXX: "next" passthrough doesn't work when using JS-backed redirects and
+    # auth widgets (they are unfortunately laying out of the PSA login flow)
+    if 'next' in request.GET:
+        request.session['next'] = request.GET['next']
+    return render(request, 'login.html')
+
+
 urlpatterns = [
+    path('login/', login_view),
     path('admin/', admin.site.urls),
     path('api/', include(v1_api.urls)),
     path('tg/', include('tgauth.urls')),

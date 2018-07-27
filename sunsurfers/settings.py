@@ -153,11 +153,17 @@ if TGAUTH_DOMAIN:
 
 TGAUTH_TOKEN = os.environ['TGAUTH_TOKEN']
 
+SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = os.environ['TELEGRAM_TOKEN']
+
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.telegram.TelegramAuth',
     'django.contrib.auth.backends.ModelBackend',
     'tgauth.auth.TokenBackend',
 ]
+
+LOGIN_URL = '/login/'
+#LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 

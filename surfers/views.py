@@ -1,8 +1,8 @@
 from datetime import timedelta
-from functools import wraps
 
 import geojson
 
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -10,15 +10,6 @@ from django.utils import timezone
 
 from surfers import api
 from surfers.models import LatestPoint
-
-
-def login_required(f):
-    @wraps(f)
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponse('Log in first, please!', status=401)
-        return f(request, *args, **kwargs)
-    return wrapper
 
 
 @login_required
