@@ -1,14 +1,11 @@
 from django.shortcuts import render
-from onboarding.models import OnBoard
+from onboarding.models import Step
 
-def oboarding(request, i):
-    onb = OnBoard.objects.filter(id = i)
-    text = onb.text
-    image = onb.image
-    button = onb.next_button
-    return render(request, 'onboarding_i.html', {
-        'text': text, 
-        'image': image,
-        'button': button  
+def oboarding(request, step):
+    obj = Step.objects.filter(id = step)
+    return render(request, 'onboarding.html', {
+        'text': obj.text, 
+        'image': obj.image,
+        'button': obj.next_button  
     })
 

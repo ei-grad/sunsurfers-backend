@@ -8,6 +8,6 @@ from django.contrib.auth.admin import UserAdmin
 from onboarding import models
 
 
-admin.site.register(models.OnBoard)
+admin.site.register(models.Step)
 
 
