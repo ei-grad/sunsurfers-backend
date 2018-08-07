@@ -9,7 +9,8 @@
     <p>ПРОПУСТИТЬ</p>
   </div>
   <div>
-    <img src="{{image}}">
+    {% load static %}
+    <img src="{{ image.url }}">
   </div>
   <div>
     <p>{{text}}</p>
