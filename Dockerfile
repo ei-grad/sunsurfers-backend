@@ -1,8 +1,9 @@
 FROM ubuntu
 
-RUN apt update \
- && apt upgrade -y \
- && apt install -y \
+RUN apt-get update \
+ && apt-get upgrade -y \
+ && apt-get install -y \
+    git \
     python3 \
     python3-dev \
     python3-pip \
