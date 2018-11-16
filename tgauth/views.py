@@ -7,10 +7,10 @@ from django.conf import settings
 from django.contrib import auth
 from django.urls import reverse
 from django.http import Http404
-from django.http import HttpResponseNotAllowed
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth import get_user_model
 
 from tgauth.auth import signer
@@ -24,69 +24,66 @@ def emojize(msg):
 
 
 @csrf_exempt
+@require_http_methods(["POST"])
 def botapi(request, token):
 
     if token != settings.TGAUTH_TOKEN:
         raise Http404()
 
-    if request.method == 'POST':
+    update = json.loads(request.body.decode(request.encoding or 'utf-8'))
 
-        update = json.loads(request.body.decode(request.encoding or 'utf-8'))
+    logger.info("Got update: %s", update)
 
-        logger.info("Got update: %s", update)
+    if 'message' in update:
 
-        if 'message' in update:
+        msg = update['message']
 
-            msg = update['message']
+        if 'from' not in msg:
+            logger.error("Got message from without 'from': %s", msg)
+            return JsonResponse({
+                'method': 'sendMessage',
+                'chat_id': msg['chat']['id'],
+                'text': 'Что-то пошло не так, боту пришло сообщение из группы.',
+            })
 
-            if 'from' not in msg:
-                logger.error("Got message from without 'from': %s", msg)
-                return JsonResponse({
-                    'method': 'sendMessage',
-                    'chat_id': msg['chat']['id'],
-                    'text': 'Что-то пошло не так, боту пришло сообщение из группы.',
-                })
+        try:
 
-            try:
-
-                if msg.get('text', '')[:1] == '/':
-                    cmd = msg['text']
-                    if cmd in COMMANDS:
-                        return COMMANDS[cmd](request, msg)
-                    else:
-                        return JsonResponse({
-                            'method': 'sendMessage',
-                            'chat_id': msg['chat']['id'],
-                            'text': 'No such command',
-                        })
-
-                elif 'location' in msg:
-                    return update_location(msg)
-
+            if msg.get('text', '')[:1] == '/':
+                cmd = msg['text']
+                if cmd in COMMANDS:
+                    return COMMANDS[cmd](request, msg)
                 else:
                     return JsonResponse({
                         'method': 'sendMessage',
                         'chat_id': msg['chat']['id'],
-                        'text': 'Обновление статуса пока не реализовано! :-)',
+                        'text': 'No such command',
                     })
 
-            except Exception:
-                logger.error("Failed processing %s:", msg, exc_info=True)
+            elif 'location' in msg:
+                return update_location(msg)
+
+            else:
                 return JsonResponse({
                     'method': 'sendMessage',
                     'chat_id': msg['chat']['id'],
-                    'text': 'Что-то пошло не так, сообщите администратору.',
+                    'text': 'Обновление статуса пока не реализовано! :-)',
                 })
 
-        else:
-            logger.error("Unsupported update: %s", update)
+        except Exception:
+            logger.error("Failed processing %s:", msg, exc_info=True)
             return JsonResponse({
                 'method': 'sendMessage',
                 'chat_id': msg['chat']['id'],
-                'text': emojize('Бот не понимает сообщения такого типа :confused:'),
+                'text': 'Что-то пошло не так, сообщите администратору.',
             })
+
     else:
-        return HttpResponseNotAllowed()
+        logger.error("Unsupported update: %s", update)
+        return JsonResponse({
+            'method': 'sendMessage',
+            'chat_id': msg['chat']['id'],
+            'text': emojize('Бот не понимает сообщения такого типа :confused:'),
+        })
 
 
 def update_location(msg):
