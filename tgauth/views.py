@@ -132,7 +132,7 @@ def start_cmd(request, msg):
 
     if created:
         user.first_name = msg['from']['first_name']
-        user.last_name = msg['from'].get('last_name')
+        user.last_name = msg['from'].get('last_name', '')
         user.save()
 
     return JsonResponse({
