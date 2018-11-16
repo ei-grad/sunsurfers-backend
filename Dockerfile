@@ -7,6 +7,7 @@ RUN apt update \
     python3-dev \
     python3-pip \
     libgeos-dev \
+    libgdal-dev \
     python3-psycopg2 \
     python3-lxml \
  && rm -rf /var/lib/apt/lists/*
