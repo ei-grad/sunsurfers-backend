@@ -27,4 +27,4 @@ Feature: Map
     Scenario: Zooming overlayed sunsurfers
         Given I see on the map the circle with the number of overlayed users
         When I zoom in the map
-        Then I overlay disappears and I see separate circles with avatars 
+        Then I overlay disappears and I see separate circles with avatars

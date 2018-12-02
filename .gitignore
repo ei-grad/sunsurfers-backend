@@ -3,3 +3,5 @@ docker-compose.yml
 /media
 /static
 .DS_Store
+/reports
+/allure-report

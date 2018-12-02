@@ -17,6 +17,7 @@ svgwrite
 # tests
 behave
 behave-django
+allure-behave
 
 # misc
 django-extensions
