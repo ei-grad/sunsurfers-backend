@@ -1,0 +1,50 @@
+- model: checklist.checklist
+  pk: 2
+  fields: {name: Early Risers Challenge, slug: early-risers, logo_image: logo.png,
+    is_active: true, bot: null}
+- model: checklist.item
+  pk: 3
+  fields: {checklist: 2, ordernum: 10, text: 'Woke up before 5:45', answer_type: bool}
+- model: checklist.item
+  pk: 4
+  fields: {checklist: 2, ordernum: 20, text: Glass of warm water with lemon, answer_type: bool}
+- model: checklist.item
+  pk: 5
+  fields: {checklist: 2, ordernum: 30, text: Yoga/ Sports, answer_type: bool}
+- model: checklist.item
+  pk: 6
+  fields: {checklist: 2, ordernum: 40, text: Walk, answer_type: bool}
+- model: checklist.item
+  pk: 7
+  fields: {checklist: 2, ordernum: 50, text: Meditation, answer_type: bool}
+- model: checklist.item
+  pk: 8
+  fields: {checklist: 2, ordernum: 60, text: Reading, answer_type: bool}
+- model: checklist.item
+  pk: 9
+  fields: {checklist: 2, ordernum: 70, text: New skill (language/ musical instrument/
+      etc), answer_type: bool}
+- model: checklist.item
+  pk: 10
+  fields: {checklist: 2, ordernum: 80, text: First hour offline, answer_type: bool}
+- model: checklist.item
+  pk: 11
+  fields: {checklist: 2, ordernum: 90, text: Healthy breakfast, answer_type: bool}
+- model: checklist.item
+  pk: 12
+  fields: {checklist: 2, ordernum: 100, text: Enough water throughout the day, answer_type: bool}
+- model: checklist.item
+  pk: 13
+  fields: {checklist: 2, ordernum: 110, text: Smiled a lot, answer_type: bool}
+- model: checklist.item
+  pk: 14
+  fields: {checklist: 2, ordernum: 120, text: Gratitudes for the day, answer_type: bool}
+- model: checklist.item
+  pk: 15
+  fields: {checklist: 2, ordernum: 130, text: Planned tomorrow, answer_type: bool}
+- model: checklist.item
+  pk: 16
+  fields: {checklist: 2, ordernum: 140, text: Dinner 2-3 hours before sleep, answer_type: bool}
+- model: checklist.item
+  pk: 17
+  fields: {checklist: 2, ordernum: 150, text: Went to bed before 22, answer_type: bool}

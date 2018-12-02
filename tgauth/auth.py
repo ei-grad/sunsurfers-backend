@@ -3,6 +3,8 @@ import logging
 from django.contrib.auth import get_user_model
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 
+from social_django.models import UserSocialAuth
+
 
 logger = logging.getLogger(__name__)
 
@@ -14,9 +16,10 @@ class TokenBackend(object):
     def authenticate(self, request, token=None):
         if token:
             try:
-                username = signer.unsign(token, max_age=600)
-                logger.info("Authenticated %s", username)
-                return get_user_model().objects.get(username=username)
+                uid = signer.unsign(token, max_age=600)
+                social = UserSocialAuth.objects.get(uid=uid, provider='telegram')
+                logger.info("Authenticated %s", social.user.username)
+                return social.user
             except SignatureExpired:
                 logger.warning("Expired signature: %s", token)
             except BadSignature:

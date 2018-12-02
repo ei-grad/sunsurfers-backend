@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>[Checklist] {{ checklist.name }}</title>
+  </head>
+  <body>
+    <div>
+      <div style="text-align: center">
+        {% if checklist.logo_image %}
+        <img src="{{ checklist.logo_image.url }}" alt="" width="72" height="72">
+        {% endif %}
+        <h2>{{ checklist.name }}</h2>
+      </div>
+      <div style="max-width: 420px; margin: auto;">
+        <form method='POST'>
+          {% csrf_token %}
+          <input id="today" type="hidden" name="date" value="{{ today_iso }}" />
+          <script>document.getElementById("today").value = (new Date()).toISOString().substring(0, 10)</script>
+          <div id="answers">
+            <p>My checklist for {{today}}:</p>
+            {% for item in items %}
+            {% if item.answer_type == 'bool' %}
+            <div>
+              <input type="checkbox" name="{{ item.pk }}" id="{{ item.pk }}" />
+              <label for="{{ item.pk }}">{{ item.text }}</label>
+            </div>
+            {% else %}
+            <div>
+              <label for="{{ item.pk }}">{{ item.text }}</label>
+              <br/>
+              <textarea name="{{ item.pk }}" id="{{ item.pk }}"></textarea>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+          <p>
+            <button type="submit" id="done">Done!</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -12,6 +12,7 @@ pyyaml
 requests
 social-auth-app-django
 social-auth-core
+svgwrite
 
 # tests
 behave

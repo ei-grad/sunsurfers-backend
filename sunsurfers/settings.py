@@ -34,8 +34,10 @@ INSTALLED_APPS = [
 
     'django.contrib.auth',
     'social_django',
+    'admin_ordering',
 
     'surfers',
+    'checklist',
     'quests',
     'tgauth',
 

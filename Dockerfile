@@ -11,6 +11,7 @@ RUN apt-get update \
     libgdal-dev \
     python3-psycopg2 \
     python3-lxml \
+    python3-cairosvg \
  && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONPATH=/usr/src/app

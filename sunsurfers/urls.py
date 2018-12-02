@@ -28,12 +28,13 @@ def login_view(request):
     # auth widgets (they are unfortunately laying out of the PSA login flow)
     if 'next' in request.GET:
         request.session['next'] = request.GET['next']
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'tgauth_bot': settings.TGAUTH_BOT})
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(v1_api.urls)),
+    path('checklist/', include('checklist.urls')),
     path('login/', login_view),
     path('map/', include('surfers.urls')),
     path('register-by-token/<backend>/', auth.register_by_access_token, 'register_by_access_token'),

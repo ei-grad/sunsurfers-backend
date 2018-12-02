@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+  <head></head>
+  <body>
+      <ul>
+      {% for i in object_list %}
+      <a href="{% url 'checklist:checklist' i.slug %}">{{ i.name }}</a>
+      {% endfor %}
+      </ul>
+  </body>
+</html>

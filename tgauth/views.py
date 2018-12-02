@@ -1,3 +1,4 @@
+from uuid import uuid4
 import json
 import logging
 
@@ -12,6 +13,8 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth import get_user_model
+
+from social_django.models import UserSocialAuth
 
 from tgauth.auth import signer
 from surfers.models import LatestPoint
@@ -162,12 +165,22 @@ def login_cmd(request, msg):
                     'а не публично в группе.',
         })
 
-    username = msg['from']['username']
-    user, created = get_user_model().objects.get_or_create(username=username)
-    if created:
-        user.first_name = msg['from']['first_name']
-        user.last_name = msg['from'].get('last_name')
+    if not UserSocialAuth.objects.filter(uid=msg['from']['id'], provider='telegram').exists():
+        username = msg['from'].get('username')
+        while get_user_model().objects.filter(username=username).exists():
+            username = msg['from'].get('username') + '-' + uuid4().hex
+        user = get_user_model()(
+            username=username,
+            first_name=msg['from'].get('first_name'),
+            last_name=msg['from'].get('last_name'),
+        )
         user.save()
+        UserSocialAuth(
+            user=user,
+            uid=msg['from']['id'],
+            provider='telegram',
+            extra_data=msg['from'],
+        ).save()
         logger.info("Created user %s", username)
 
     return JsonResponse({
@@ -179,7 +192,7 @@ def login_cmd(request, msg):
             "https://{domain}{url}"
         ).format(
             domain=settings.TGAUTH_DOMAIN,
-            url=reverse("login", args=[signer.sign(username)])
+            url=reverse("tgauth:login", args=[signer.sign(msg['from']['id'])])
         )})
 
 
@@ -193,6 +206,6 @@ def login(request, token):
     user = auth.authenticate(token=token)
     if user is not None:
         auth.login(request, user)
-        return redirect('/')
+        return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         raise Http404()
