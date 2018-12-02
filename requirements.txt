@@ -1,15 +1,17 @@
+cairosvg
 defusedxml
 django
+django-admin-ordering
 django-tastypie
-geojson
 emoji
+geojson
 lxml
+pillow
 psycopg2
 pyyaml
 requests
-# telegram auth backend is not released yet
-git+https://github.com/python-social-auth/social-core.git
 social-auth-app-django
+social-auth-core
 
 # tests
 behave

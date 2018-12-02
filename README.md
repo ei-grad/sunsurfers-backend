@@ -47,7 +47,7 @@ Set some environment variables:
 ```bash
 export SECRET_KEY=secret
 export TGAUTH_DOMAIN=127.0.0.1
-export TGAUTH_TOKEN=
+export TGAUTH_WEBHOOK_SUFFIX=
 # it would be available on the website anyway
 export MAPBOX_TOKEN=pk.eyJ1IjoiZWktZ3JhZCIsImEiOiJjaWhnNW5qd3YwMDd1dHhtNHd1a2FuZ3k4In0.zkrRQneYHOJhLNAbsRuttw
 export DEBUG=1

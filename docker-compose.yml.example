@@ -1,13 +1,24 @@
 sunsurfers:
     image: eigrad/sunsurfers-backend
     links:
-    - postgres
+        - postgres
     ports:
-    - 8000:8000
+        - 127.0.0.1:8000:8000
+    volumes:
+        - ./static:/static
     environment:
         POSTGRES_HOST: postgres
         POSTGRES_USER: www-data
+        POSTGRES_PORT: 5432
         POSTGRES_PASSWORD: ''
+        STATIC_ROOT: /static
+        TGAUTH_BOT: sunmapbot
+        TGAUTH_DOMAIN: sunmap.ei-grad.ru
+        TGAUTH_WEBHOOK_SUFFIX: ...  # put a short random string here and use `./manage.py setwebhook`
+        TELEGRAM_TOKEN: ...  # get it from BotFather
+        MAPBOX_TOKEN: ...  # https://www.mapbox.com/account/
+        SECRET_KEY: ...  # should be a long random string (64+ chars)
+        DEBUG: 0
 
 postgres:
     image: mdillon/postgis

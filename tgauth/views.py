@@ -27,7 +27,7 @@ def emojize(msg):
 @require_http_methods(["POST"])
 def botapi(request, token):
 
-    if token != settings.TGAUTH_TOKEN:
+    if token != settings.TGAUTH_WEBHOOK_SUFFIX:
         raise Http404()
 
     update = json.loads(request.body.decode(request.encoding or 'utf-8'))

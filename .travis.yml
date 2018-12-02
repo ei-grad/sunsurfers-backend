@@ -19,7 +19,7 @@ env:
         #- POSTGRES_PORT=5433
         - SECRET_KEY=secret
         - TGAUTH_DOMAIN=sunmap.ei-grad.ru
-        - TGAUTH_TOKEN=
+        - TGAUTH_WEBHOOK_SUFFIX=
         - MAPBOX_TOKEN=pk.eyJ1IjoiZWktZ3JhZCIsImEiOiJjaWhnNW5qd3YwMDd1dHhtNHd1a2FuZ3k4In0.zkrRQneYHOJhLNAbsRuttw
         - TELEGRAM_TOKEN=
         - SOCIAL_AUTH_FACEBOOK_KEY=

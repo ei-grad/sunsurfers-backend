@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG') == '1')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -145,14 +145,19 @@ STATIC_URL = '/static/'
 if 'STATIC_ROOT' in os.environ:
     STATIC_ROOT = os.environ['STATIC_ROOT']
 
+MEDIA_URL = '/media/'
+if 'MEDIA_ROOT' in os.environ:
+    MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 TASTYPIE_FULL_DEBUG = DEBUG
 
+TGAUTH_BOT = os.environ['TGAUTH_BOT']
 TGAUTH_DOMAIN = os.environ['TGAUTH_DOMAIN']
-if TGAUTH_DOMAIN:
-    ALLOWED_HOSTS.append(TGAUTH_DOMAIN)
+ALLOWED_HOSTS.append(TGAUTH_DOMAIN)
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
 
-TGAUTH_TOKEN = os.environ['TGAUTH_TOKEN']
+TGAUTH_WEBHOOK_SUFFIX = os.environ['TGAUTH_WEBHOOK_SUFFIX']
 
 SOCIAL_AUTH_TELEGRAM_BOT_TOKEN = os.environ['TELEGRAM_TOKEN']
 
@@ -164,7 +169,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/login/'
-#LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/map'
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 

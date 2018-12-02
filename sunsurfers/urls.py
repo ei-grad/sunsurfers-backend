@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.urls import path, include
 from django.contrib.gis import admin
 from django.shortcuts import render
@@ -31,11 +32,16 @@ def login_view(request):
 
 
 urlpatterns = [
-    path('login/', login_view),
     path('admin/', admin.site.urls),
     path('api/', include(v1_api.urls)),
-    path('tg/', include('tgauth.urls')),
-    path('', include('surfers.urls')),
-    path('social-auth/', include('social_django.urls', namespace='social')),
+    path('login/', login_view),
+    path('map/', include('surfers.urls')),
     path('register-by-token/<backend>/', auth.register_by_access_token, 'register_by_access_token'),
+    path('social-auth/', include('social_django.urls', namespace='social')),
+    path('tg/', include('tgauth.urls')),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

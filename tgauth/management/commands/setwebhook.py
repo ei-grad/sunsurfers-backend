@@ -19,7 +19,7 @@ class Command(BaseCommand):
     def handle(self, token, **kwargs):
         url = 'https://{domain}{path}'.format(
             domain=settings.TGAUTH_DOMAIN,
-            path=reverse('webhook', args=(settings.TGAUTH_TOKEN,))
+            path=reverse('webhook', args=(settings.TGAUTH_WEBHOOK_SUFFIX,))
         )
         answer = input('''
 Are you sure to set webhook to:
