@@ -2,3 +2,4 @@ docker-compose.yml
 .env
 /media
 /static
+.DS_Store
