@@ -1,31 +1,47 @@
 <!doctype html>
 <html>
   <head>
+<style>
+html, body, .centered { height: 100%; margin: 0; }
+.centered {
+    display: flex;
+    flex-flow: column;
+	align-items: center;
+    justify-content: center;
+}
+.facebook-button {
+	display: flex;
+	align-items: center;
+    background-color: #4267b2;
+    border-radius: 4px;
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.25px;
+    text-decoration: none;
+    padding: 8px;
+    margin-top: 8px;
+}
+.facebook-button svg {
+    display: inline;
+}
+.facebook-button span {
+    padding-top: 4px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+</style>
   </head>
   <body>
-      <center>
-      <script async src="https://telegram.org/js/telegram-widget.js?4"
-          data-telegram-login="{{ tgauth_bot }}" data-size="large"
-          data-auth-url="https://{{ request.get_host }}{% url "social:complete" "telegram" %}"
-          data-request-access="write"></script>
-      <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-          if (d.getElementById(id)) return;
-          var js, fjs = d.getElementsByTagName(s)[0];
-          js = d.createElement(s); js.id = id;
-          js.src = 'https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v3.1&appId=413417222487186';
-          js.onerror = function() {
-              fbfallback = d.createElement('div');
-              fbfallback.innerHTML = "<a href=\"{% url "social:begin" "facebook" %}\">Вход через Facebook</a>";
-              fjs.parentNode.insertBefore(fbfallback, fjs);
-          }
-          fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
-      <div class="fb-login-button"
-           data-width="200"
-           data-max-rows="1"
-           data-size="large" data-button-type="login_with" data-show-faces="false"
-           data-auto-logout-link="false" data-use-continue-as="false"></div>
-      </center>
+      <div class="centered">
+          <script async src="https://telegram.org/js/telegram-widget.js?4"
+              data-telegram-login="{{ tgauth_bot }}" data-size="large"
+              data-auth-url="https://{{ request.get_host }}{% url "social:complete" "telegram" %}"
+              data-request-access="write"></script>
+          <a class="facebook-button" href="{% url "social:begin" "facebook" %}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" width="24px" height="24px"><path fill="#FFFFFF" d="M204.1 0H11.9C5.3 0 0 5.3 0 11.9v192.2c0 6.6 5.3 11.9 11.9 11.9h103.5v-83.6H87.2V99.8h28.1v-24c0-27.9 17-43.1 41.9-43.1 11.9 0 22.2.9 25.2 1.3v29.2h-17.3c-13.5 0-16.2 6.4-16.2 15.9v20.8h32.3l-4.2 32.6h-28V216h55c6.6 0 11.9-5.3 11.9-11.9V11.9C216 5.3 210.7 0 204.1 0z"></path></svg>
+              <span>Вход через Facebook</span>
+          </a>
+      </div>
   </body>
 </html>

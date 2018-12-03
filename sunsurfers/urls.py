@@ -32,11 +32,11 @@ def login_view(request):
 
 
 urlpatterns = [
+    path('', include('surfers.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(v1_api.urls)),
     path('checklist/', include('checklist.urls')),
     path('login/', login_view),
-    path('map/', include('surfers.urls')),
     path('register-by-token/<backend>/', auth.register_by_access_token, 'register_by_access_token'),
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('tg/', include('tgauth.urls')),
