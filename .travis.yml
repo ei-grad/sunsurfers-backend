@@ -1,31 +1,18 @@
 language: python
 python:
-    - "3.6"
+    - "3.7"
 services:
     - postgresql
-addons:
-    postgresql: "9.6"
-    apt:
-        packages:
-            - postgresql-9.6
-            - postgresql-server-dev-9.6
-            - postgresql-client-9.6
-            - python-gdal
-            - postgresql-9.6-postgis-2.4
-            - postgresql-9.6-postgis-2.4-scripts
 env:
     global:
-        #- PGPORT=5433
-        #- POSTGRES_PORT=5433
         - SECRET_KEY=secret
-        - TGAUTH_DOMAIN=sunmap.ei-grad.ru
+        - TGAUTH_BOT=
+        - TGAUTH_DOMAIN=
         - TGAUTH_WEBHOOK_SUFFIX=
-        - MAPBOX_TOKEN=pk.eyJ1IjoiZWktZ3JhZCIsImEiOiJjaWhnNW5qd3YwMDd1dHhtNHd1a2FuZ3k4In0.zkrRQneYHOJhLNAbsRuttw
         - TELEGRAM_TOKEN=
+        - MAPBOX_TOKEN=
         - SOCIAL_AUTH_FACEBOOK_KEY=
         - SOCIAL_AUTH_FACEBOOK_SECRET=
-before_install:
-    #- sudo -u postgres createuser -s `whoami`
 script:
     - ./manage.py test
-    #- ./manage.py behave -S
+    - ./manage.py behave -k -S -f allure
