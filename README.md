@@ -14,6 +14,11 @@ around the world. It will try to make you the Sunsurfer.
 Run for Development
 -------------------
 
+### Pre-requirements:
+
+- pre-installed `python3`
+- pre-installed `postgresql`
+
 Clone the repo, create virtualenv and install requirements:
 ```
 git clone https://github.com/ei-grad/sunsurfers-backend.git
